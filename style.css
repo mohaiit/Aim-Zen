@@ -1,0 +1,241 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+body, html {
+    background-color: #01030a;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    user-select: none;
+}
+
+.hidden { display: none !important; }
+
+/* --- MENU INTERFACING --- */
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #0c1220 0%, #010206 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.lobby-box {
+    background: rgba(8, 12, 24, 0.95);
+    border: 2px solid #00f2fe;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    width: 480px;
+    box-shadow: 0 0 50px rgba(0, 242, 254, 0.25);
+}
+
+.glow-txt {
+    color: #ffffff;
+    font-size: 1.6rem;
+    text-shadow: 0 0 12px #00f2fe;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.desc { color: #4b5563; font-size: 0.85rem; margin-bottom: 30px; }
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    color: #9ca3af;
+}
+
+.sensitivity-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 15px;
+}
+
+input[type="range"] {
+    flex-grow: 1;
+    accent-color: #00f2fe;
+    cursor: pointer;
+}
+
+#sensi-value-display {
+    color: #00f2fe;
+    font-weight: bold;
+    min-width: 30px;
+    text-align: right;
+}
+
+select {
+    background: #111827;
+    border: 1px solid #374151;
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+
+.menu-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #00f2fe 0%, #3b82f6 100%);
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    letter-spacing: 1px;
+}
+
+.menu-btn:hover {
+    box-shadow: 0 0 30px #00f2fe;
+    transform: translateY(-2px);
+}
+
+/* --- ARENA DESIGN --- */
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.hud-bar {
+    height: 50px;
+    background: #060913;
+    border-bottom: 2px solid #1f2937;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 35px;
+    color: #f3f4f6;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.hud-item { display: flex; align-items: center; gap: 8px; }
+.text-cyan { color: #00f2fe; }
+.text-red { color: #ef4444; }
+.user-action-tip { color: #4b5563; font-size: 0.8rem; margin-left: auto; }
+
+.exit-btn {
+    background: #1f2937;
+    border: 1px solid #374151;
+    color: #ffffff;
+    padding: 4px 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#viewport-wrapper {
+    flex-grow: 1;
+    position: relative;
+    width: 100%;
+    background-color: #000000;
+}
+
+#gameCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* RETICLE AIM CROSSHAIR */
+#fps-crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 5;
+}
+#fps-crosshair::before { content: ''; position: absolute; top: 3px; left: -10px; width: 28px; height: 2px; background: #00f2fe; }
+#fps-crosshair::after { content: ''; position: absolute; left: 3px; top: -10px; width: 2px; height: 28px; background: #00f2fe; }
+
+/* FULLSCREEN AWM SCOPE INTERFACE SCREEN OVERLAY */
+#sniper-scope-ui {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+    border: 120px solid rgba(0,0,0,0.92); /* Vignette blackout */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.scope-ring {
+    width: 480px;
+    height: 480px;
+    border: 3px solid #ef4444;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 60px rgba(0,0,0,1);
+}
+
+.scope-crosshairs {
+    position: absolute;
+    inset: 0;
+}
+.scope-crosshairs::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: #ef4444; }
+.scope-crosshairs::after { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: #ef4444; }
+
+/* GUN SPRITE DESIGN CHASSIS CONTROLS */
+#weapon-sprite {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 6;
+    transition: transform 0.15s, width 0.15s, height 0.15s;
+}
+
+.deagle-skin {
+    width: 200px;
+    height: 160px;
+    background: linear-gradient(to top, #334155, transparent);
+    border-left: 12px solid #475569;
+    border-right: 12px solid #1e293b;
+    border-top: 30px solid #0f172a;
+    border-radius: 12px 12px 0 0;
+}
+
+.awm-skin {
+    width: 90px;
+    height: 280px;
+    background: linear-gradient(to top, #064e3b, transparent);
+    border-left: 6px solid #0f766e;
+    border-right: 6px solid #115e59;
+    border-top: 140px solid #022c22;
+    border-radius: 8px 8px 0 0;
+}
+
+.weapon-idle { transform: translateX(-50%) translateY(15px); }
+.weapon-recoil { animation: kickAction 0.1s ease-out forwards; }
+
+@keyframes kickAction {
+    0% { transform: translateX(-50%) translateY(60px) scale(0.85); filter: brightness(2.5); }
+    100% { transform: translateX(-50%) translateY(15px) scale(1); filter: brightness(1); }
+}

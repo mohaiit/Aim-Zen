@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aim-Zen // Natural 3D Tactical Arena</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="lobby-ui" class="menu-overlay">
+        <div class="lobby-box">
+            <h1 class="glow-txt">🎮 AIM-ZEN 3D: FINALIZED</h1>
+            <p class="desc">Directional Wall Shading // Texture Grooves // Input Delta Safeguards</p>
+            
+            <div class="setting-row">
+                <label><i class="fa-solid fa-crosshairs"></i> Enemy Skill Level:</label>
+                <select id="bot-difficulty">
+                    <option value="beginner">Beginner Bots (Slow & Passive)</option>
+                    <option value="medium" selected>Standard Match (Balanced Combat)</option>
+                    <option value="pro">Pro Snipers (Hyper-Fast React)</option>
+                </select>
+            </div>
+
+            <div class="setting-row sensitivity-container">
+                <label><i class="fa-solid fa-sliders"></i> Mouse Sensitivity:</label>
+                <div class="slider-wrapper">
+                    <input type="range" id="mouse-sensi-slider" min="0.2" max="3.0" step="0.1" value="1.0">
+                    <span id="sensi-value-display">1.0</span>
+                </div>
+            </div>
+
+            <button class="menu-btn" id="launch-match-btn">LAUNCH FULLSCREEN MATCH</button>
+        </div>
+    </div>
+
+    <div id="game-container" class="hidden">
+        <div class="hud-bar">
+            <div class="hud-item"><i class="fa-solid fa-gun"></i> ACTIVE: <span id="current-weapon-txt" class="text-cyan">DESERT EAGLE</span></div>
+            <div class="hud-item"><i class="fa-solid fa-bullseye text-red"></i> KILLS: <span id="player-kills">0</span></div>
+            <div class="hud-item"><i class="fa-solid fa-shield text-cyan"></i> SHIELD: <span id="shield-timer">5s</span></div>
+            <div class="user-action-tip">[W,A,S,D] Move // [Mouse] Look // [Q] Switch Gun // [RMB] Scope (AWM) // [SPACE] Duck // [CLICK] Fire</div>
+            <button id="exit-match-btn" class="exit-btn">QUIT</button>
+        </div>
+
+        <div id="viewport-wrapper">
+            <canvas id="gameCanvas"></canvas>
+            
+            <div id="fps-crosshair"></div>
+            
+            <div id="sniper-scope-ui" class="hidden">
+                <div class="scope-ring">
+                    <div class="scope-crosshairs"></div>
+                </div>
+            </div>
+            
+            <div id="weapon-sprite" class="weapon-idle deagle-skin"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
